@@ -1,10 +1,13 @@
 exports.validateComment = (commentData) => {
-    const errors = {};
-    if (!commentData.title) {
-        errors.title = 'Title is required';
+    const errors = [];
+    if (!commentData.postId || commentData.postId.trim() === '') {
+        errors.push('Post ID is required.');
     }
-    if (!commentData.content) {
-        errors.content = 'Content is required';
+    if (!commentData.content || commentData.content.trim() === '') {
+        errors.push('Content is required.');
     }
-    return errors;
+
+    return errors.length > 0 
+        ? { error: { details: errors } }
+        : null;
 };

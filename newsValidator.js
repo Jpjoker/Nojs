@@ -1,13 +1,15 @@
 exports.validateNewsPost = (newsPostData) => {
-    const errors = {};
-    if (!newsPostData.title) {
-        errors.title = 'Title is required';
+    const errors = [];
+    if (!newsPostData.title || newsPostData.title.trim() === '') {
+        errors.push('Title is required.');
     }
-    if (!newsPostData.content) {
-        errors.content = 'Content is required';
+    if (!newsPostData.content || newsPostData.content.trim() === '') {
+        errors.push('Content is required.');
     }
-    return errors;
 
+    return errors.length > 0 
+        ? { error: { details: errors } }
+        : null;
     
 
     };
